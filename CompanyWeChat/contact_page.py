@@ -1,5 +1,8 @@
 from selenium.webdriver.common.by import By
 from time import sleep
+
+from selenium.webdriver.support.wait import WebDriverWait
+
 from base_page import BasePage
 from profile_page import ProfilePage
 
@@ -14,6 +17,7 @@ class ContactPage(BasePage):
     _save = (By.CSS_SELECTOR, '.js_btn_save')       # 保存
     _tips = (By.CSS_SELECTOR, '#js_tips')       # 保存成功提示
     _memberSearchInput = (By.CSS_SELECTOR, '#memberSearchInput')     # 搜索成员
+    _searchResult = (By.CSS_SELECTOR, '#search_member_list li a span:first-child')     # 搜索结果
 
     def add_member(self, name, alias, id, mobile, **kwargs):
         self.click_and_check(self._add_member, self._username)
@@ -33,8 +37,11 @@ class ContactPage(BasePage):
 
     def search(self, key):
         self.sendKeys(*self._memberSearchInput, key)
-        sleep(1)
-        # self.find_element_by_wait(By.CSS_SELECTOR, '#memberSearchInput').send_keys(key)
+        def ifsearch(x):
+            eles = self.driver.find_elements(*self._searchResult)
+            if len(eles) >= 1 and key in eles[0].text:
+                return True
+        WebDriverWait(self.driver, 4).until(ifsearch)
         return ProfilePage(self.driver)
 
 

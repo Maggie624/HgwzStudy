@@ -24,12 +24,10 @@ class ProfilePage(BasePage):
 
     def disable(self):
         self.click_by_sele(*self._disable)
-        self.click_by_sele(*self._submit)
-        time.sleep(0.5)
+        self.click_and_check(self._submit, self._enable)
 
     def enable(self):
-        self.click_by_sele(*self._enable)
-        time.sleep(0.5)
+        self.click_and_check(self._enable, self._disable)
 
     def delete(self):
         pass
