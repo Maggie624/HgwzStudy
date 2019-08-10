@@ -52,9 +52,3 @@ class BasePage:
     def refresh(self):
         self.driver.refresh()
 
-
-if __name__ == "__main__":
-    chrome = webdriver.Chrome()
-    chrome.get('https://baidu.com')
-    driver = BasePage(chrome)
-    driver.find_element_by_wait(By.LINK_TEXT, '张艺兴')
