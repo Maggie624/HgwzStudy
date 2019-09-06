@@ -16,6 +16,6 @@ class ProfilePage(BasePage):
 
     def goto_xueqiu(self):
         self.find_and_click(self._action_back)
-        return XueqiuPage()
+        return XueqiuPage(self.driver)
 
 

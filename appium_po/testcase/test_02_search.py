@@ -5,13 +5,14 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 from appium_po.page.search_page import SearchPage
 from appium_po.page.xueqiu_page import XueqiuPage
 import pytest
+from appium_po.driver.xueqiu import XueqiuDriver
 
 
 class TestSearch:
-
     def setup_class(self):
-        self.xueqiu = XueqiuPage()
-        self.search = SearchPage(self.xueqiu.driver)
+        self.driver = XueqiuDriver()
+        self.xueqiu = XueqiuPage(self.driver)
+        self.search = SearchPage(self.driver)
 
     def teardown_class(self):
         pass

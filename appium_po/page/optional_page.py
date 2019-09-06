@@ -14,7 +14,13 @@ class OptionalPage(BasePage):
     _operation = (By.ID, 'md_title')        # 对股票进行更多操作
     _deleteStock = (By.XPATH, '//*[@text="删除"]')
     _stockName = (By.ID, "portfolio_stockName")
+    _add_to_portfolio_stock = (By.ID, 'add_to_portfolio_stock')     # 加入自选股
 
+    def add_to_portfolio_stock(self):
+        ele = self.find(self._add_to_portfolio_stock)
+        if ele:
+            ele.click()
+        return self
 
     def close_defalut_tip(self):
         ele = self.find(self._tip)
@@ -43,3 +49,4 @@ class OptionalPage(BasePage):
         for item in elements:
             names.append(item.text)
         return names
+

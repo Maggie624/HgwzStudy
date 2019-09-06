@@ -30,5 +30,5 @@ class LoginPage(BasePage):
 
     def goto_profile(self):
         self.find_and_click(self._iv_action_back)
-        self.find_and_click(self._leave)
+        # self.find_and_click(self._leave)
         return ProfilePage(self.driver)

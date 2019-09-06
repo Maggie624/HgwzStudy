@@ -6,14 +6,15 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 from appium_po.page.xueqiu_page import XueqiuPage
 from appium_po.page.optional_page import OptionalPage
 from appium_po.page.search_page import SearchPage
-
+from appium_po.driver.xueqiu import XueqiuDriver
 
 class TestAddStock:
 
     def setup_class(self):
-        self.xueqiu = XueqiuPage()
-        self.optional = OptionalPage(self.xueqiu.driver)
-        self.search = SearchPage(self.xueqiu.driver)
+        self.driver = XueqiuDriver()
+        self.xueqiu = XueqiuPage(self.driver)
+        self.optional = OptionalPage(self.driver)
+        self.search = SearchPage(self.driver)
 
     def teardown_class(self):
         self.xueqiu.goto_xueqiu()

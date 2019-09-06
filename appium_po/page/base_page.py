@@ -33,9 +33,12 @@ class BasePage:
                 result_x = min_x_per * window_x <= location['x'] <= max_x_per * window_x
                 result_y = min_y_per * window_y <= location['y'] <= max_y_per * window_y
                 return result_x and result_y
-        WebDriverWait(self.driver, timeout*2, 0.5, ignored_exceptions=TimeoutException) \
-            .until(located_in_correct_position)
-        return element
+        try:
+            WebDriverWait(self.driver, timeout*2, 0.5, ignored_exceptions=TimeoutException) \
+                .until(located_in_correct_position)
+            return element
+        except TimeoutException:
+            return None
 
     def finds(self, locator, timeout=5):
         elements = WebDriverWait(self.driver, timeout, 0.5, ignored_exceptions=TimeoutException)\
@@ -56,10 +59,15 @@ class BasePage:
     def press_search(self):
         self.driver.execute_script("mobile: performEditorAction", {"action": "search"})
 
-    def tap_position(self, position, duration=None):
+    def tap_position(self, position=None, percent=None, duration=None):
+        if percent:
+            x, y = self.window_size()
+            position = [(x*percent[0], y*percent[1])]
+        print('position=', position)
         self.driver.tap(positions=position, duration=duration)
 
     def press_long(self, locator, duration=1500):
         element = WebDriverWait(self.driver, 5, 0.5, ignored_exceptions=TimeoutException)\
             .until(EC.visibility_of_element_located(locator))
         TouchAction(self.driver).long_press(el=element, duration=duration).perform()
+

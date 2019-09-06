@@ -1,21 +1,25 @@
 import pytest
-import os,sys
+import os, sys
+
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from appium_po.page.login_page import LoginPage
 from appium_po.page.profile_page import ProfilePage
 from appium_po.page.xueqiu_page import XueqiuPage
-import pickle
+from appium_po.driver.xueqiu import XueqiuDriver
 
 class TestLogin:
 
     def setup_class(self):
-        self.xueqiu = XueqiuPage()
-        self.profile = ProfilePage(self.xueqiu.driver)
-        self.login = LoginPage(self.xueqiu.driver)
+        self.driver = XueqiuDriver()
+        self.xueqiu = XueqiuPage(self.driver)
+        self.profile = ProfilePage(self.driver)
+        self.login = LoginPage(self.driver)
 
     def teardown_class(self):
         self.login.goto_profile()
         self.profile.goto_xueqiu()
+        # self.driver.close_app()
 
     @pytest.fixture(scope='function')
     def close_msg(self):
