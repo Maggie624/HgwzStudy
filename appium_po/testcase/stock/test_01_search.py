@@ -1,9 +1,9 @@
-import allure
-import pickle
-import os,sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from appium_po.page.search_page import SearchPage
-from appium_po.page.xueqiu_page import XueqiuPage
+import os
+import sys
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
+from appium_po.page.stock.search_page import SearchPage
+from appium_po.page.main.xueqiu_page import XueqiuPage
 import pytest
 from appium_po.driver.xueqiu import XueqiuDriver
 
@@ -14,9 +14,6 @@ class TestSearch:
         self.xueqiu = XueqiuPage(self.driver)
         self.search = SearchPage(self.driver)
 
-    def teardown_class(self):
-        pass
-
 
     @pytest.fixture(scope='function')
     def pre_search(self):
@@ -25,7 +22,7 @@ class TestSearch:
         self.search.cancel_search()
 
     @pytest.mark.parametrize('key, name, stockCode, price', [
-        ('alibaba', '阿里巴巴', 'BABA', 170),
+        ('alibaba', '阿里巴巴', 'BABA', 160),
         ('xiaomi', '小米', '01810', 8.0),
         ('google', '谷歌', 'GOOGL', 1000)
     ])

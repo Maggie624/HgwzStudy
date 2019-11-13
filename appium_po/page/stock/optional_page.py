@@ -1,13 +1,12 @@
-from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-
-from appium_po.page.base_page import BasePage
-from appium_po.page.search_page import SearchPage
 import allure
+from selenium.webdriver.common.by import By
+
+from appium_po.common.base_page import BasePage
+from appium_po.page.stock.search_page import SearchPage
 
 
 class OptionalPage(BasePage):
+    """自选"""
     _tip = (By.ID, 'snb_tip_text')      # 新增手势切换、指标设置功能
     _search = (By.ID, "action_search")      # 搜索按钮
     _stock = (By.XPATH, "//*[@text='平安银行']/../..")

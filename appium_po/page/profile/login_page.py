@@ -1,10 +1,11 @@
 from selenium.webdriver.common.by import By
 
-from appium_po.page.base_page import BasePage
-from appium_po.page.profile_page import ProfilePage
+from appium_po.common.base_page import BasePage
+from appium_po.page.profile.profile_page import ProfilePage
 
 
 class LoginPage(BasePage):
+    """登录"""
     _phone = (By.ID, 'iv_login_phone')      # 手机号
     _username = (By.ID, 'login_account')        # 用户名
     _psw = (By.ID, 'login_password')        # 密码

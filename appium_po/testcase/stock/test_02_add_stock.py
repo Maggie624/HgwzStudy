@@ -1,11 +1,13 @@
-import pytest
-import shelve
+import os
+import sys
+
 import allure
-import os,sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from appium_po.page.xueqiu_page import XueqiuPage
-from appium_po.page.optional_page import OptionalPage
-from appium_po.page.search_page import SearchPage
+import pytest
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
+from appium_po.page.main.xueqiu_page import XueqiuPage
+from appium_po.page.stock.optional_page import OptionalPage
+from appium_po.page.stock.search_page import SearchPage
 from appium_po.driver.xueqiu import XueqiuDriver
 
 class TestAddStock:

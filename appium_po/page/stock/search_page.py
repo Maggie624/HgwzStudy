@@ -1,8 +1,6 @@
-from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webdriver import WebDriver
 
-from appium_po.page.base_page import BasePage
+from appium_po.common.base_page import BasePage
 
 
 class SearchPage(BasePage):
@@ -16,9 +14,6 @@ class SearchPage(BasePage):
     _next_comment = (By.ID, 'md_buttonDefaultNegative')     # 下次再说
 
 
-    def __init__(self, driver: WebDriver):
-        self.driver = driver
-
     def search(self, keyword):
         self.find_and_sendkeys(self._search_text, keyword)
         # self.driver.execute_script("mobile: performEditorAction", {"action": "search"})
@@ -29,13 +24,17 @@ class SearchPage(BasePage):
         return self
 
     def get_price(self, stock_code):
-        price = self.driver.find_element_by_xpath("//*[contains(@resource-id, stockCode) and @text='"+stock_code+"']"
-                                                  "/../../..//*[contains(@resource-id,'current_price')]").text
-        return float(price)
+        # price = self.driver.find_element_by_xpath("//*[contains(@resource-id, stockCode) and @text='"+stock_code+"']"
+        #                                           "/../../..//*[contains(@resource-id,'current_price')]").text
+        price = self.find_and_gettext((By.XPATH, "//*[contains(@resource-id, stockCode) and @text='"+stock_code+"']"
+                                                        "/../../..//*[contains(@resource-id,'current_price')]"))
+        return float(price) if price else None
 
     def get_name(self, stock_code):
-        name = self.driver.find_element_by_xpath("//*[contains(@resource-id, 'stockCode') and @text='"+stock_code+"']"
-                                                 "/../..//*[contains(@resource-id, 'stockName')]").text
+        # name = self.driver.find_element_by_xpath("//*[contains(@resource-id, 'stockCode') and @text='"+stock_code+"']"
+        #                                          "/../..//*[contains(@resource-id, 'stockName')]").text
+        name = self.find_and_gettext((By.XPATH, "//*[contains(@resource-id, 'stockCode') and @text='"+stock_code+"']"
+                                                       "/../..//*[contains(@resource-id, 'stockName')]"))
         return name
 
     def cancel_search(self):
