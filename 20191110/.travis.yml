@@ -1,0 +1,13 @@
+sudo: false
+language: python
+python:
+  - 3.8
+matrix:
+  include:
+    - python: 3.8
+      dist: xenial
+install:
+  - pip install poetry
+  - poetry istall -vvv
+script:
+  - python test_mubu_login.py
