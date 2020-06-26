@@ -16,6 +16,8 @@ def test_get_login():
     data = 'phone=17612126297&password=141214&remember=true'
     response = requests.post(url=url, headers=headers, data=data, verify=False).json()
     assert response['code'] == 0
+    assert response.status_code == 200
+
 
 if __name__ == '__main__':
     test_get_homepage()
